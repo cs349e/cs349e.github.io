@@ -5,94 +5,124 @@
   <title>CS349E</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
 
-    /* Add a blue background color to the top navigation */
-    .topnav {
-      background-color: #1974D2;
-      overflow: hidden;
-    }
+  :root {
+    --bg: #FBF8F2; --bg-alt: #F3EDE2; --ink: #2B2420; --ink-muted: #7A6F61;
+    --accent: #7A2E2E; --accent-soft: #F3E3E1; --line: #E7DDCB; --link: #8A3A2E;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,sans-serif; line-height:1.65; }
+  a { color:var(--link); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--link); }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:22px 52px; border-bottom:2px solid var(--accent); }
+  nav .brand { font-family:'Source Serif 4', Georgia, serif; font-weight:700; font-size:19px; color:var(--accent); }
+  nav .links { display:flex; gap:28px; }
+  nav .links a { color:var(--ink); font-weight:500; font-size:14px; border-bottom:none; padding-bottom:4px; }
+  nav .links a.active { color:var(--accent); border-bottom:2px solid var(--accent); }
+  .hero { padding:76px 52px 60px; max-width:860px; margin:0 auto; }
+  .kicker { font-family:'Source Serif 4', Georgia, serif; font-style:italic; color:var(--accent); font-size:15px; margin-bottom:16px; }
+  h1 { font-family:'Source Serif 4', Georgia, serif; font-size:48px; font-weight:700; letter-spacing:-0.01em; margin:0 0 18px; color:var(--ink); border-left:5px solid var(--accent); padding-left:22px; }
+  .hero p.desc { font-size:17px; color:var(--ink-muted); max-width:640px; }
+  .hero .meta { margin-top:28px; display:flex; gap:40px; font-size:13.5px; flex-wrap:wrap; }
+  .hero .meta div span { display:block; color:var(--ink-muted); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; font-family:'Source Serif 4', serif; font-style:italic; }
+  main { padding:0 52px; max-width:1060px; margin:0 auto; }
+  section { padding:50px 0; }
+  h2.section-title { font-family:'Source Serif 4', Georgia, serif; font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin:0 0 30px; padding-bottom:10px; border-bottom:2px solid var(--line); }
+  .staff-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:24px; }
+  .staff-card img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; box-shadow:0 2px 10px rgba(122,46,46,0.12); transition:transform .2s, box-shadow .2s; }
+  .staff-card:hover img { transform:translateY(-3px); box-shadow:0 6px 16px rgba(122,46,46,0.22); }
+  .staff-card .name { margin-top:12px; font-weight:600; font-size:14.5px; }
+  .staff-card .role { font-size:12.5px; color:var(--accent); margin-top:2px; font-style:italic; font-family:'Source Serif 4', serif; }
+  table { width:100%; border-collapse:collapse; margin-top:4px; background:var(--bg); }
+  th,td { text-align:left; padding:13px 12px; font-size:14px; vertical-align:top; }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); font-weight:600; border-bottom:2px solid var(--accent); }
+  tr.shade td { background: var(--bg-alt); }
+  td.date { color:var(--ink-muted); font-size:13px; white-space:nowrap; }
+  td.topic .who { color:var(--ink-muted); font-weight:400; font-size:13px; }
+  td.readings ul { margin:4px 0 0; padding-left:18px; font-size:13px; color:var(--ink-muted); }
+  tr.muted-row td { color:var(--ink-muted); font-style:italic; }
+  .lecture-desc { min-height:1.6em; margin-top:4px; color:var(--ink-muted); font-size:13px; font-weight:400; }
+  .desc.small { font-size:14px; margin-top:4px; color:var(--ink-muted); max-width:640px; }
+  .info-list { display:grid; grid-template-columns:1fr 1fr; gap:16px 34px; margin:0; }
+  .info-list div { display:flex; flex-direction:column; gap:3px; }
+  .info-list dt { font-family:'Source Serif 4', serif; font-style:italic; font-size:12px; color:var(--accent); }
+  .info-list dd { margin:0; font-size:15px; }
+  h3.sub { font-family:'Source Serif 4', Georgia, serif; font-size:18px; color:var(--accent); margin:34px 0 14px; font-style:italic; }
+  ul.oh-list, ul.grading-list { padding-left:0; list-style:none; margin:0; }
+  ul.oh-list li { padding:12px 0; border-bottom:1px solid var(--line); font-size:14.5px; }
+  ul.grading-list li { display:flex; align-items:center; gap:14px; padding:9px 0; font-size:15px; }
+  .pct { font-weight:700; color:var(--accent); width:48px; font-family:'Source Serif 4', serif; }
+  .assign-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  .assign { background:var(--bg-alt); border-left:3px solid var(--accent); border-radius:2px; padding:16px 18px; }
+  .assign h4 { margin:0 0 6px; font-size:14.5px; font-family:'Source Serif 4', serif; color:var(--ink); }
+  .assign p { margin:0; font-size:13.5px; color:var(--ink-muted); }
+  .note { color:var(--ink-muted); font-size:14px; }
+  footer { padding:40px 52px; color:var(--ink-muted); font-size:13px; }
 
-    /* Style the links inside the navigation bar */
-    .topnav a {
-      float: left;
-      color: #f2f2f2;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      font-size: 17px;
-    }
-
-    /* Change the color of links on hover */
-    .topnav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-
-    /* Add a color to the active/current link */
-    .topnav a.active {
-      background-color: #4CAF50;
-      color: white;
-    }
   </style>
 </head>
 
 <body>
 
-  <h1>CS349E: Efficient ML Infrastructure at Scale</h1>
-  <div class="topnav">
+<nav>
+  <div class="brand">CS349E</div>
+  <div class="links">
     <a href="index.html">Home</a>
-    <a href="course_info.html">Course Info</a>
+    <a href="course_info.html" class="active">Course Info</a>
   </div>
+</nav>
 
-  <h2> Basic Logistics</h2>
-  <p> <b>Instructors</b>: Zain Asgar, Mark Horowitz, <a href="mailto:kjolstad@stanford.edu">Fred Kjolstad</a>, Priyanka Raina</p>
-  <p> <b>CA</b>: Usman Tariq</p>
+<main style="padding-top: 48px;">
 
-  <p> <b>Quarter</b>: Autumn 2026</p>
-  <p> <b>Lecture Times</b>: Tue, Thu 10:30 AM - 11:50 AM</p>
-  <p> <b>Lecture Location</b>: Lathrop 299</p>
+  <h2>Basic Logistics</h2>
+  <dl class="info-list">
+    <div><dt>Instructors</dt><dd>Zain Asgar, Mark Horowitz, <a href="mailto:kjolstad@stanford.edu">Fred Kjolstad</a>, Priyanka Raina</dd></div>
+    <div><dt>CA</dt><dd>Usman Tariq</dd></div>
+    <div><dt>Quarter</dt><dd>Autumn 2026</dd></div>
+    <div><dt>Lecture Times</dt><dd>Tue, Thu 10:30-11:50 AM</dd></div>
+    <div><dt>Lecture Location</dt><dd>Lathrop 299</dd></div>
+  </dl>
 
-  <p> <b>Office Hours</b></p>
-  <p> Fred: Tuesdays 1-2pm, CoDa E456 (Fred's office) </p>
-  <p> Mark: MWF 4:30-5:30pm, Packard 175 (Mark's office) </p>
-  <p> Priyanka: Wednesdays 4-5pm, Allen 114 (Priyanka's office) </p>
-  <p> Usman: Mondays 12:30-2:30pm, Zoom; Thursdays 1-3pm, Zoom </p>
-
-  <h2> Grading </h2>
-
-  <ul>
-    <li> 20% Class participation </li>
-    <li> 40% Assignments </li>
-    <li> 40% Project </li>
+  <h3 class="sub">Office Hours</h3>
+  <ul class="oh-list">
+    <li><b>Fred</b>: Tuesdays 1-2pm, CoDa E456 (Fred's office)</li>
+    <li><b>Mark</b>: MWF 4:30-5:30pm, Packard 175 (Mark's office)</li>
+    <li><b>Priyanka</b>: Wednesdays 4-5pm, Allen 114 (Priyanka's office)</li>
+    <li><b>Usman</b>: Mondays 12:30-2:30pm, Zoom; Thursdays 1-3pm, Zoom</li>
   </ul>
 
-  <h2> Assignments </h2>
+  <h2>Grading</h2>
+  <ul class="grading-list">
+    <li><span class="pct">20%</span> Class participation</li>
+    <li><span class="pct">40%</span> Assignments</li>
+    <li><span class="pct">40%</span> Project</li>
+  </ul>
 
-  <p> All assignments are due at 11:59 PM on their due date. </p>
+  <h2>Assignments</h2>
+  <p class="note">All assignments are due at 11:59 PM on their due date.</p>
 
-  <h3> Assignment 1: LLM Inference </h3>
-  <p> Released Sep 24 (Thu), due Oct 1 (Thu). </p>
+  <div class="assign-grid">
+    <div class="assign"><h4>Assignment 1: LLM Inference</h4><p>Released Sep 24 (Thu), due Oct 1 (Thu).</p></div>
+    <div class="assign"><h4>Assignment 2: Disaggregated Inference</h4><p>Released Oct 5 (Mon), due Oct 12 (Mon).</p></div>
+    <div class="assign"><h4>Assignment 3: Tensor Parallelism</h4><p>Released Oct 12 (Mon), due Oct 19 (Mon).</p></div>
+    <div class="assign"><h4>Assignment 4: Kernel Writing</h4><p>Released Oct 23 (Fri), due Oct 30 (Fri).</p></div>
+  </div>
 
-  <h3> Assignment 2: Disaggregated Inference </h3>
-  <p> Released Oct 5 (Mon), due Oct 12 (Mon). </p>
+  <h2>Students with Documented Disabilities</h2>
+  <p>Students who may need an academic accommodation based on the impact of a disability must initiate the request
+    with the Office of Accessible Education (OAE). Professional staff will evaluate the request with required
+    documentation, recommend reasonable accommodations, and prepare an Accommodation Letter for faculty. Unless the
+    student has a temporary disability, Accommodation letters are issued for the entire academic year. Students
+    should contact the OAE as soon as possible since timely notice is needed to coordinate accommodations. The OAE is
+    located at 563 Salvatierra Walk (phone: 723-1066, URL: <a href="https://oae.stanford.edu/">https://oae.stanford.edu/</a>).</p>
 
-  <h3> Assignment 3: Tensor Parallelism </h3>
-  <p> Released Oct 12 (Mon), due Oct 19 (Mon). </p>
+</main>
 
-  <h3> Assignment 4: Kernel Writing </h3>
-  <p> Released Oct 23 (Fri), due Oct 30 (Fri). </p>
-
-  <h2> Students with Documented Disabilities </h2>
-  <p> Students who may need an academic accommodation based on the impact of a disability must initiate the request with
-    the Office of Accessible Education (OAE). Professional staff will evaluate the request with required documentation,
-    recommend reasonable accommodations, and prepare an Accommodation Letter for faculty. Unless the student has a
-    temporary disability, Accommodation letters are issued for the entire academic year. Students should contact the OAE
-    as soon as possible since timely notice is needed to coordinate accommodations. The OAE is located at 563
-    Salvatierra Walk (phone: 723-1066, URL: https://oae.stanford.edu/.) </p>
+<footer>CS349E &middot; Autumn 2026 &middot; Efficient ML Inference at Scale</footer>
 
 </body>
 
